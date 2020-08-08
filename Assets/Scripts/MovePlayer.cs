@@ -3,7 +3,9 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     public Rigidbody rigidBody;
-    public float playerSpeed = 50;
+    public float playerSpeed = 50f;
+    public float playerJumpSpeed = 20f;
+    public float raycastCheck = 0.7f;
 
     void Start()
     {
@@ -12,6 +14,7 @@ public class MovePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
+        // walking
         // TODO Make movement snappier
         if (Input.GetKey("a"))
         {
@@ -29,6 +32,14 @@ public class MovePlayer : MonoBehaviour
         {
             rigidBody.AddForce(0, 0, -playerSpeed * Time.deltaTime);
         }
-        // TODO implement jump
+
+        // jumping
+        bool grounded = Physics.Raycast(transform.position, Vector3.down, raycastCheck);
+        if (Input.GetButton("Jump")) {
+            Debug.Log("space bar was pressed");
+            if (grounded) {
+                rigidBody.AddForce(0, playerJumpSpeed, 0, ForceMode.Force);
+            }
+        }
     }
 }

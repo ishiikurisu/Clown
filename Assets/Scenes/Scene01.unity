@@ -540,6 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 389625345}
   playerSpeed: 50
+  playerJumpSpeed: 20
 --- !u!1 &476411332
 GameObject:
   m_ObjectHideFlags: 0
