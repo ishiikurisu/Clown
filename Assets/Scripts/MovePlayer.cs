@@ -16,27 +16,16 @@ public class MovePlayer : MonoBehaviour
     {
         // walking
         // TODO Make movement snappier
-        if (Input.GetKey("a"))
-        {
-            rigidBody.AddForce(-playerSpeed * Time.deltaTime, 0, 0);
-        }
-        if (Input.GetKey("d"))
-        {
-            rigidBody.AddForce(playerSpeed * Time.deltaTime, 0, 0);
-        }
-        if (Input.GetKey("w"))
-        {
-            rigidBody.AddForce(0, 0, playerSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey("s"))
-        {
-            rigidBody.AddForce(0, 0, -playerSpeed * Time.deltaTime);
-        }
+        rigidBody.AddForce(
+            Input.GetAxis("Horizontal") * playerSpeed * Time.deltaTime,
+            0,
+            Input.GetAxis("Vertical") * playerSpeed * Time.deltaTime
+        );
 
         // jumping
         bool grounded = Physics.Raycast(transform.position, Vector3.down, raycastCheck);
         if (Input.GetButton("Jump")) {
-            Debug.Log("space bar was pressed");
+            // TODO find out why jumping with space bar does not work on Linux
             if (grounded) {
                 rigidBody.AddForce(0, playerJumpSpeed, 0, ForceMode.Force);
             }
