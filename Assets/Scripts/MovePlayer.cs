@@ -22,8 +22,19 @@ public class MovePlayer : MonoBehaviour
             ForceMode.VelocityChange
         );
 
+        // rotating
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            transform.eulerAngles = new Vector3(
+                transform.eulerAngles.x,
+                Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg,
+                transform.eulerAngles.z
+            );
+        }
+
         // jumping
-        if (Input.GetButton("Jump")) {
+        if (Input.GetButton("Jump"))
+        {
             // TODO find out why jumping with space bar does not work on Linux
             bool grounded = Physics.Raycast(transform.position, Vector3.down, raycastCheck);
             if (grounded) {
